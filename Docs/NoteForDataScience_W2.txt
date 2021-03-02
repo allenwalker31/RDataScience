@@ -98,3 +98,23 @@ Function
 			1. check for exact match
 			2. check for partial match
 			3. check for positional match
+			
+	Part 2
+		the "..." argument
+			- same used as other languages
+			- can be used when the number o arguments passed to the function can't be known in advance
+
+Scope Binding
+
+Scoping Rules
+	search global first then packages
+	the order of packages is matters
+	When a user loads a package with library the namespace of that package gets put in position 2 of the search list (by default) and everything else gets shifted down the list.
+	Note that R has separate namespaces for functions and non-functions so it’s possible to have an object named c and a function named c.
+	
+	Rules:
+		The scoping rules determine how a value is associated with a free variable in a function
+		R uses lexical scoping or static scoping. A common alternative is dynamic scoping.
+		Related to the scoping rules is how R uses the search list to bind a value to a symbol
+		Lexical scoping turns out to be particularly useful for simplifying statistical computations
+	Function can be defined in function
