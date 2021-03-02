@@ -34,3 +34,32 @@ f <- function(x) {
 g <- function(x) {
   x*y
 }
+
+#Data time
+x <- as.Date("1970-01-01")
+unclass(x)
+unclass(as.Date("1970-01-02"))
+
+x <- Sys.time()
+x
+p <- as.POSIXct(x)
+p
+unclass(p)
+p <- as.POSIXlt(x)
+p
+names(unclass(p))
+
+p$sec
+
+
+  #strptime
+datestring <- c("January 10, 2012 10:40", "December 9, 2011 9:10")
+x <- strptime(datestring, "%B %d, %Y %H:%M")
+x
+  #comparison
+x <- as.Date("2012-01-01")
+y <- strptime("9 Jan 2011 11:34:21", "%d %b %Y %H:%M:%S")
+x-y
+
+x <- as.POSIXlt(x)
+x-y

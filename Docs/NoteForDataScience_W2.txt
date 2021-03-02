@@ -118,3 +118,14 @@ Scoping Rules
 		Related to the scoping rules is how R uses the search list to bind a value to a symbol
 		Lexical scoping turns out to be particularly useful for simplifying statistical computations
 	Function can be defined in function
+
+
+Data and Time
+	Dates are represented by the Date class
+	Times are represented by the POSIXct or the POSIXlt class
+	Dates are stored internally as the number of days since 1970-01-01
+	Tmes are stored internally as the number of seconds since 1970-01-01
+	
+	Times are represented using the POSIXct or the POSIXlt class
+		POSIXct is just a very large integer under the hood; it use a useful class when you want to store times in something like a data frame
+		POSIXlt is a list underneath and it stores a bunch of other useful information like the day of the week, day of the year, month, day of the month
