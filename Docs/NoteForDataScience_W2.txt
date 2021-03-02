@@ -1,0 +1,131 @@
+if else
+
+	y <- if(x > 3) {
+	 10
+	} else {
+	 0
+	}
+for
+	x <- c("a", "b", "c", "d")
+	for(i in 1:4) {
+		print(x[i])
+	}
+	for(i in seq_along(x)) {
+		print(x[i])
+	}
+	for(letter in x) {
+		print(letter)
+	}
+	for(i in 1:4) print(x[i])
+	
+	x <- matrix(1:6, 2, 3)
+	for(i in seq_len(nrow(x))) {
+		 for(j in seq_len(ncol(x))) {
+			print(x[i, j])
+		 }
+	}
+
+While
+	count <- 0
+	while(count < 10) {
+	 print(count)
+	 count <- count + 1
+	}
+	
+	z <- 5
+	while(z >= 3 && z <= 10) {
+		 print(z)
+		 coin <- rbinom(1, 1, 0.5)
+		 if(coin == 1) { ## random walk
+			z <- z + 1
+		} else {
+			z <- z - 1
+		 }
+	}
+
+Repeat, Next, Break
+	x0 <- 1
+	tol <- 1e-8
+	repeat {
+		 x1 <- computeEstimate() ## note real function
+		 if(abs(x1 - x0) < tol) {
+			break
+		 } else {
+			x0 <- x1
+		 }
+	}
+	
+	
+Function
+	--Introductio
+	add2 <- functioncs(x,y){
+		x + y ##R return the last expression
+	}
+	
+	above10 <- function(x){
+		use <- x > 10
+		x[use] ##return subset
+	}
+	
+	above <- function(x,n = 10){
+		use <- x > n
+		x[use]
+	}
+	
+	columnmean -< function(y, removeNA = TRUE){
+		nc -< ncol(y)
+		means -< numeric(nc}
+		for(i in 1:nc){
+			means[i] <- mean(y[,1], na.rm = removeNA)
+		}
+		means
+	}
+	
+	--Part 1
+		- Functions are created using the function()
+		- Functions in R are “first class objects”, which means that they can be treated much like any other R object.
+			+ Functions can be passed as arguments to other functions
+			+ Functions can be nested, so that you can define a function inside of another function. The return value of a function is the last expression in the function body to be evaluated.
+		- Functions have named arguments which potentially have default values.
+			+ The formal arguments are the arguments included in the function definition
+			+ The formals function returns a list of all the formal arguments of a function
+			+ Not every function call in R makes use of all the formal arguments
+			+ Function arguments can be missing or might have default values
+			
+		- sd()
+		- can mix order of argument by name.
+		- can be partially matched, 
+			1. check for exact match
+			2. check for partial match
+			3. check for positional match
+			
+	Part 2
+		the "..." argument
+			- same used as other languages
+			- can be used when the number o arguments passed to the function can't be known in advance
+
+Scope Binding
+
+Scoping Rules
+	search global first then packages
+	the order of packages is matters
+	When a user loads a package with library the namespace of that package gets put in position 2 of the search list (by default) and everything else gets shifted down the list.
+	Note that R has separate namespaces for functions and non-functions so it’s possible to have an object named c and a function named c.
+	
+	Rules:
+		The scoping rules determine how a value is associated with a free variable in a function
+		R uses lexical scoping or static scoping. A common alternative is dynamic scoping.
+		Related to the scoping rules is how R uses the search list to bind a value to a symbol
+		Lexical scoping turns out to be particularly useful for simplifying statistical computations
+	Function can be defined in function
+
+
+Data and Time
+	Dates are represented by the Date class
+	Times are represented by the POSIXct or the POSIXlt class
+	Dates are stored internally as the number of days since 1970-01-01
+	Tmes are stored internally as the number of seconds since 1970-01-01
+	
+	Times are represented using the POSIXct or the POSIXlt class
+		POSIXct is just a very large integer under the hood; it use a useful class when you want to store times in something like a data frame
+		POSIXlt is a list underneath and it stores a bunch of other useful information like the day of the week, day of the year, month, day of the month
