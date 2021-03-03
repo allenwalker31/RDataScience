@@ -1,0 +1,74 @@
+Loop Function
+	lapply: Loop over a list and evaluate a function on each element
+	sapply: Same as lapply but try to simplify the result
+	apply: Apply a function over the margins of an array
+	tapply: Apply a function over subsets of a vector
+	mapply: Multivariate version of lapply
+
+lapply for list
+	## function (X, FUN, ...)
+	## {
+	## FUN <- match.fun(FUN)
+	## if (!is.vector(X) || is.object(X))
+	## X <- as.list(X)
+	## .Internal(lapply(X, FUN))
+	## }
+	## <bytecode: 0x7ff7a1951c00>
+	## <environment: namespace:base>
+
+	lapply and friends make heavy use of anonymous functions
+	
+sapply will try to simplify the result of lapply if possible.
+	If the result is a list where every element is length 1, then a vector is returned
+	If the result is a list where every element is a vector of the same length (> 1), a matrix is returned.
+	If it can’t figure things out, a list is returned
+
+apply for array
+	apply is used to a evaluate a function (often an anonymous one) over the margins of an array.
+		It is most often used to apply a function to the rows or columns of a matrix
+		It can be used with general arrays, e.g. taking the average of an array of matrices
+		It is not really faster than writing a loop, but it works in one line!
+	> str(apply)
+	function (X, MARGIN, FUN, ...)
+	
+	special function:
+		rowSums = apply(x, 1, sum)
+		rowMeans = apply(x, 1, mean)
+		colSums = apply(x, 2, sum)
+		colMeans = apply(x, 2, mean)
+	quantiles function
+
+mapply
+	 is a multivariate apply of sorts which applies a function in parallel over a set of arguments
+	function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)
+	
+tapply
+	 is used to apply a function over subsets of a vector
+	 function (X, INDEX, FUN = NULL, ..., simplify = TRUE)
+
+split
+	split takes a vector or other objects and splits it into groups determined by a factor or list of factors.
+	function (x, f, drop = FALSE, ...)
+	split data frame
+		s <- split(airquality, airquality$Month)
+		lapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")]))
+		sapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")])) 
+		sapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")],na.rm = TRUE))
+	Splitting on More than One Level Splitting on More than One Level
+		 x <- rnorm(10)
+		 f1 <- gl(2, 5)
+		 f2 <- gl(5, 2)
+		 f1
+		f2
+		interaction(f1,f2)
+	-interaction can create empty level
+		str(split(x, list(f1, f2)))
+	-interaction can be dropped
+		str(split(x, list(f1, f2), drop = TRUE))
+		
+Debugging
+	traceback: prints out the function call stack after an error occurs; does nothing if there’s no error
+	debug: flags a function for “debug” mode which allows you to step through execution of a function one line at a time
+	browser: suspends the execution of a function wherever it is called and puts the function in debug mode
+	trace: allows you to insert debugging code into a function a specific places
+	recover: allows you to modify the error behavior so that you can browse the function call stack
